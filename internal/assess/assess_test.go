@@ -23,9 +23,24 @@ func TestClassifySample(t *testing.T) {
 	}
 }
 
+func TestClassifyUnknownPolicyEmitsNoFalseFinding(t *testing.T) {
+	// AD exposes no central FIDO2 flag: users without an observed method are
+	// needs-remediation, but must NOT get a fabricated idp-policy finding.
+	inv := model.Inventory{
+		Policy: model.Policy{Provenance: "ad:", Confidence: model.ConfidenceUnknown},
+		Users: []model.User{
+			{UPN: "u@example.com", Enabled: true, Provenance: "ad:", Confidence: model.ConfidenceObserved},
+		},
+	}
+	r := Classify(&inv)
+	if r.NeedsRemediation != 1 || len(r.Findings) != 0 {
+		t.Fatalf("got %+v", r)
+	}
+}
+
 func TestClassifyBlockedPolicy(t *testing.T) {
 	inv := model.Inventory{
-		Policy: model.Policy{FIDO2Allowed: false, WHfBAllowed: false, Provenance: "ad:"},
+		Policy: model.Policy{FIDO2Allowed: false, WHfBAllowed: false, Provenance: "entra:", Confidence: model.ConfidenceObserved},
 		Users: []model.User{
 			{UPN: "u@example.com", Enabled: true, Provenance: "ad:", Confidence: model.ConfidenceObserved},
 		},
