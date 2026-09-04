@@ -25,11 +25,16 @@ go build -o go-passwordless ./cmd/go-passwordless
   --out inventory-ad.json
 
 ./go-passwordless scan entra --tenant contoso.onmicrosoft.com \
+  --client-id $GO_PASSWORDLESS_ENTRA_CLIENT_ID \
   --out inventory-entra.json
 
 ./go-passwordless assess --inventory inventory-ad.json,inventory-entra.json \
-  --org org.example.yaml --out report.json --format md
+  --org org.example.yaml --out report.json --format md,html
 ```
+
+The HTML report is a single self-contained file carrying only the
+go-passwordless identity — open it in a browser and use Print → Save as PDF
+for an attractive, unbranded handoff.
 
 Try it with zero infrastructure:
 
@@ -51,5 +56,9 @@ And of course, it's written in Go :)
 
 ## Status
 
-Scaffolding: engine + report work end-to-end on sample data. Live AD (M1) and
-Entra (M2) query engines are stubbed with validated config surfaces.
+- M0 done: engine + report work end-to-end on sample data.
+- M1 done: live AD LDAPS scan (`scan ad`) — operator's own login, read-only,
+  WHfB signal via `msDS-KeyCredentialLink`.
+- M2 done: live Entra Graph scan (`scan entra`) — one admin-consent click,
+  delegated device-code flow, users + auth methods + apps + devices.
+- Reports render as JSON, Markdown, and self-contained HTML (Save as PDF).
