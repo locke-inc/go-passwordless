@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Format check
+        run: test -z "$(gofmt -l .)"
+      - name: Vet
+        run: go vet ./...
+      - name: Test
+        run: go test ./...
+      - name: Build
+        run: go build ./...
+      - name: Sample assessment
+        run: |
+          go build -o go-passwordless-bin ./cmd/go-passwordless
+          ./go-passwordless-bin assess \
+            --inventory testdata/sample-inventory.json \
+            --org org.example.yaml \
+            --out /tmp/report.json --format md,html
