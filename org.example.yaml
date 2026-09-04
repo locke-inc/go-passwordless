@@ -1,0 +1,6 @@
+# Customer-supplied economics ONLY. Every value is optional.
+# Missing values render as "not provided" — nothing is invented.
+resets_per_month: 120
+minutes_per_reset: 15
+hourly_rate: 45
+estimated_breach_cost: 0

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "inventory/v1",
+  "users": [
+    {
+      "id": "u-alice",
+      "upn": "alice@example.com",
+      "enabled": true,
+      "smartcardRequired": false,
+      "passwordNotRequired": false,
+      "hasPhishingResistant": true,
+      "hasSPN": false,
+      "class": 0,
+      "classReason": "",
+      "provenance": "entra:",
+      "confidence": 2
+    },
+    {
+      "id": "u-bob",
+      "upn": "bob@example.com",
+      "enabled": true,
+      "smartcardRequired": false,
+      "passwordNotRequired": false,
+      "hasPhishingResistant": false,
+      "hasSPN": false,
+      "class": 0,
+      "classReason": "",
+      "provenance": "ad:",
+      "confidence": 2
+    },
+    {
+      "id": "u-svc",
+      "upn": "svc-backup@example.com",
+      "enabled": true,
+      "smartcardRequired": false,
+      "passwordNotRequired": false,
+      "hasPhishingResistant": false,
+      "hasSPN": true,
+      "class": 0,
+      "classReason": "",
+      "provenance": "ad:",
+      "confidence": 2
+    }
+  ],
+  "devices": [
+    {
+      "id": "dev-1",
+      "os": "Windows 11",
+      "joinType": "Entra Joined",
+      "compliant": true,
+      "provenance": "entra:",
+      "confidence": 2
+    }
+  ],
+  "apps": [
+    {"id": "app-1", "name": "HR Portal", "ssoProtocol": "oidc", "provenance": "entra:"},
+    {"id": "app-2", "name": "Legacy Tracker", "ssoProtocol": "none", "provenance": "entra:"}
+  ],
+  "policy": {
+    "fido2Allowed": true,
+    "whfbAllowed": true,
+    "provenance": "entra:",
+    "confidence": 2
+  }
+}
