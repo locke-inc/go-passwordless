@@ -1,8 +1,8 @@
 # Local-only: progress log never gets committed to the open-source repo.
 PROGRESS.md
 
-# Build output
-go-passwordless
+# Build output (rooted: must not match cmd/go-passwordless sources)
+/go-passwordless
 /dist/
 
 # Local scan artifacts (may contain customer org data — never commit)

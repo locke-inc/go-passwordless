@@ -116,7 +116,7 @@ never a full questionnaire.
   provisioning on their side.
   Least-privilege read-only scopes:
   `User.Read.All`, `Policy.Read.All`,
-  `DeviceManagementManagedDevices.Read.All`, `AuditLog.Read.All`.
+  `Device.Read.All`, `AuditLog.Read.All`.
 - Endpoints (Microsoft Graph v1.0):
   - `authenticationMethodsPolicy` — is FIDO2 / WHfB / phone-sign-in allowed?
   - `conditionalAccess` policies — what is enforced vs. report-only?
@@ -182,12 +182,17 @@ Breach exposure renders ONLY from user-supplied incident cost, labeled as
 
 ## 13. MVP milestones
 
-1. **M0 skeleton**: `go.mod`, CLI plumbing, `model` types, JSON I/O. (~1 day)
-2. **M1 AD scan**: LDAPS connector + `scan ad` emitting `Inventory`. (~2–3 days)
-3. **M2 Entra scan**: Graph connector + `scan entra`. (~2–3 days)
-4. **M3 engine + report**: classify, cost, plan, Markdown renderer + README
-   targeting "go passwordless" keywords with open-passkey/Locke links. (~2 days)
-5. **M4 dogfood**: run against a test AD + test Entra tenant, fix gaps, tag
+1. [x] **M0 skeleton**: `go.mod`, CLI plumbing, `model` types, JSON I/O.
+   Shipped in scaffolding PR.
+2. [x] **M1 AD scan**: LDAPS connector + `scan ad` emitting `Inventory`.
+   Shipped in PR #1. Untested against live DC (see M4).
+3. [x] **M2 Entra scan**: Graph connector + `scan entra`. Code complete,
+   mapping unit-tested. Untested against a live tenant + pending Locke
+   multi-tenant app registration (see assumptions). (see M4)
+4. [x] **M3 engine + report**: classify, cost, plan, Markdown renderer + README
+   targeting "go passwordless" keywords with open-passkey/Locke links.
+   Shipped in scaffolding PR (predates M1/M2).
+5. [ ] **M4 dogfood**: run against a test AD + test Entra tenant, fix gaps, tag
    `v0.1.0`.
 
 ## 14. Assumptions — review checklist
