@@ -44,7 +44,7 @@ func Classify(inv *model.Inventory) Result {
 			u.Class = model.ClassReadyNow
 			u.ClassReason = "phishing-resistant method already present"
 			r.ReadyNow++
-		case !inv.Policy.FIDO2Allowed && !inv.Policy.WHfBAllowed:
+		case !inv.Policy.FIDO2Allowed && !inv.Policy.WHfBAllowed && inv.Policy.Confidence != model.ConfidenceUnknown:
 			u.Class = model.ClassNeedsRemediation
 			u.ClassReason = "IdP policy does not allow FIDO2 or Windows Hello for Business"
 			r.NeedsRemediation++
